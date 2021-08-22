@@ -11,7 +11,7 @@ export default class TaskList extends Component {
         const elements = tasks.map((item) => {
             return (
                 <li className={item.className} key={item.id}>
-                    <Task todo={item} onDelete={(id) => onDelete(id)} completeTask={(id, completed) => completeTask(id, completed)} />
+                    <Task todo={item} onDelete={(id) => onDelete(id)} completeTask={(id) => completeTask(id)} />
                 </li>
             )
         })

@@ -16,7 +16,7 @@ class Task extends Component {
     const { todo, onDelete, completeTask } = this.props
     return (
       <div className="view">
-        <Toggle completeTask={(completed) => completeTask(todo.id, completed)}/>
+        <Toggle completeTask={ () => completeTask(todo.id) }/>
         <label>
           <span className="description">{todo.text}</span>
           <span className="created">Created {formatDistanceToNow(new Date())} ago</span>
@@ -29,26 +29,11 @@ class Task extends Component {
 }
 
 class Toggle extends Component {
-  state = {
-    completed: false
-  }
-
-  changeToComplete() {
-    this.setState(({completed}) => {
-      return {
-        completed: !completed
-      }
-    })
-  }
 
   render() {
-    const {completed} = this.state
     const {completeTask} = this.props
     return (
-      <input className="toggle" type="checkbox" onClick={() => {
-        this.changeToComplete()
-        completeTask(completed)
-      }}/> 
+      <input className="toggle" type="checkbox" onClick={ () => completeTask() }/> 
     )
   }
 }
