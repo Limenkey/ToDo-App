@@ -1,41 +1,47 @@
-import React, {Component} from "react"
-import { formatDistanceToNow } from 'date-fns'
-import '../Task/task.css'
+/* eslint-disable react/forbid-prop-types */
+/* eslint-disable jsx-a11y/control-has-associated-label */
+/* eslint-disable react/jsx-filename-extension */
+/* eslint-disable max-classes-per-file */
+import React from "react"
+import PropTypes from 'prop-types'
+import "./task.css"
 
-class Task extends Component {
 
-  state = {
-    done: false
-  }
-  
-  
+const Task = ({ todo, onDelete, completeTask }) => (
+  <div className="view">
+    <Toggle completeTask={ () => completeTask(todo.id) }/>
+    <label>
+      <span className="description">{todo.text}</span>
+      <span className="created">{todo.created}</span>
+    </label>
+    <button type="button" className="icon icon-edit" />
+    <button type="button" className="icon icon-destroy" onClick={() => onDelete(todo.id)} />
+  </div>    
+)  
 
-  
-
-  render() {
-    const { todo, onDelete, completeTask } = this.props
-    return (
-      <div className="view">
-        <Toggle completeTask={ () => completeTask(todo.id) }/>
-        <label>
-          <span className="description">{todo.text}</span>
-          <span className="created">Created {formatDistanceToNow(new Date())} ago</span>
-        </label>
-        <button className="icon icon-edit"></button>
-        <button className="icon icon-destroy" onClick={() => onDelete(todo.id)}></button>
-      </div>    
-)
-  }  
+Task.defaultProps = {
+  todo: {},
+  onDelete: () => {},
+  completeTask: () => {}
 }
 
-class Toggle extends Component {
+Task.propTypes = {
+  todo: PropTypes.object,
+  onDelete: PropTypes.func,
+  completeTask: PropTypes.func
+}
 
-  render() {
-    const {completeTask} = this.props
-    return (
-      <input className="toggle" type="checkbox" onClick={ () => completeTask() }/> 
-    )
+const Toggle = ({completeTask}) => (
+  <input className="toggle" type="checkbox" onClick={ () => completeTask() }/> 
+)
+
+
+Toggle.defaultProps = {
+  completeTask: () => {}
   }
+
+Toggle.propTypes = {
+  completeTask: PropTypes.func
 }
 
 export default Task

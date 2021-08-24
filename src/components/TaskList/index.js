@@ -1,26 +1,34 @@
-import React, {Component} from "react"
+/* eslint-disable react/jsx-filename-extension */
+import React from "react"
+import PropTypes from 'prop-types'
 import Task from "../Task"
-import '../TaskList/tasklist.css'
+import "./tasklist.css"
 
 
 
-export default class TaskList extends Component {
 
-    render() {
-        const {tasks, onDelete, completeTask} = this.props
-        const elements = tasks.map((item) => {
-            return (
-                <li className={item.className} key={item.id}>
-                    <Task todo={item} onDelete={(id) => onDelete(id)} completeTask={(id) => completeTask(id)} />
-                </li>
-            )
-        })
-
-        return (
-            <ul className="todo-list">
-                {elements}
-            </ul>
-        )
-    }
+const TaskList = ({tasks, onDelete, completeTask}) => {
+    const elements = tasks.map((item) => (
+            <li className={item.className} key={item.id}>
+                <Task todo={item} onDelete={(id) => onDelete(id)} completeTask={(id) => completeTask(id)} />
+            </li>
+        ))
+    return (
+        <ul className="todo-list">
+            {elements}
+        </ul>
+    )
     
+}
+
+TaskList.defaultProps = {
+    tasks: [{},{},{}],
+    onDelete: () => {},
+    completeTask: () => {}
+}
+
+TaskList.propTypes = {
+    tasks: PropTypes.arrayOf(PropTypes.object),
+    onDelete: PropTypes.func,
+    completeTask: PropTypes.func
 }

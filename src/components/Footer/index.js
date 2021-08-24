@@ -1,6 +1,8 @@
+/* eslint-disable react/jsx-filename-extension */
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import TasksFilter from '../TasksFilter'
-import '../Footer/footer.css'
+import "./footer.css"
 
 export default class Footer extends Component{
     state = {
@@ -11,7 +13,21 @@ export default class Footer extends Component{
               ]
     }
 
-    getIdx = (id) => this.state.btns.findIndex((el) => el.id === id)    
+    static propTypes = {
+        countActive: PropTypes.string,
+        onClearCompleted: PropTypes.func,
+        onFilter: PropTypes.func
+    }
+
+    static defaultProps = {
+        countActive:'It has been created sometime ago',
+        onClearCompleted: () => {},
+        onFilter: () => {}
+    }
+
+    getIdx = (id) => {
+        const {btns} = this.state
+        btns.findIndex((el) => el.id === id)}    
 
     changeBtnProp = (id, propName, propVal) => {
         this.setState(({btns}) => {
@@ -29,35 +45,34 @@ export default class Footer extends Component{
     }
     
     selectBtn = (id) => {
-        this.state.btns.filter((el) => el.id === id)
+        const {btns} = this.state
+        btns.filter((el) => el.id === id)
                        .forEach((el) => {
             if (el.id === id) this.changeBtnProp(id, 'class', 'selected')
             else this.changeBtnProp(id, 'class', null)
         })
-        this.state.btns.filter(  ( el ) => el.id !== id )
+        btns.filter(  ( el ) => el.id !== id )
                        .forEach( ( el ) => this.changeBtnProp( el.id, 'class', null ) )
     }
 
     render() {
         const { countActive, onClearCompleted, onFilter } = this.props
         const { btns } = this.state
-        const filterBtns = btns.map((item) => {
-            return (
+        const filterBtns = btns.map((item) => (
                 <li  key = { item.id }>
                     <TasksFilter btn = { item } onFilter={(str, id) => {
                                                                          onFilter(str)
                                                                          this.selectBtn(id)
                                                                         }} />
                 </li>
-            )
-        })
+            ))
         return (
             <footer className="footer">
                 <span className="todo-count">{ countActive }</span>
                 <ul className="filters">
                     {filterBtns}
                 </ul>
-                <button className="clear-completed" onClick={onClearCompleted}>Clear completed</button>
+                <button type="button" className="clear-completed" onClick={onClearCompleted}>Clear completed</button>
           </footer>
         )
     }
