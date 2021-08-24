@@ -22,12 +22,12 @@ const Task = ({ todo, onDelete, completeTask }) => (
 Task.defaultProps = {
   todo: {},
   onDelete: () => {},
-  completeTask: () => {}
 }
 
 Task.propTypes = {
   todo: PropTypes.object,
   onDelete: PropTypes.func,
+  // eslint-disable-next-line react/require-default-props
   completeTask: PropTypes.func
 }
 
@@ -35,12 +35,8 @@ const Toggle = ({completeTask}) => (
   <input className="toggle" type="checkbox" onClick={ () => completeTask() }/> 
 )
 
-
-Toggle.defaultProps = {
-  completeTask: () => {}
-  }
-
 Toggle.propTypes = {
+  // eslint-disable-next-line react/require-default-props
   completeTask: PropTypes.func
 }
 

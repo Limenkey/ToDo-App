@@ -40,7 +40,7 @@ export default class App extends Component {
 
     getIdx = (id) => {
         const {tasks} = this.state
-        tasks.findIndex((el) => el.id === id)
+        return tasks.findIndex((el) => el.id === id)
     }
 
 

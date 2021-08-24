@@ -27,7 +27,8 @@ export default class Footer extends Component{
 
     getIdx = (id) => {
         const {btns} = this.state
-        btns.findIndex((el) => el.id === id)}    
+       return btns.findIndex((el) => el.id === id)
+    }    
 
     changeBtnProp = (id, propName, propVal) => {
         this.setState(({btns}) => {

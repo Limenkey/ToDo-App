@@ -32,3 +32,5 @@ TaskList.propTypes = {
     onDelete: PropTypes.func,
     completeTask: PropTypes.func
 }
+
+export default TaskList
