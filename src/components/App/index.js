@@ -5,8 +5,7 @@
 /* eslint-disable no-unused-expressions */
 /* eslint-disable no-param-reassign */
 /* eslint-disable react/jsx-filename-extension */
-import React, {useEffect, useState} from "react"
-import { formatDistanceToNow } from 'date-fns'
+import React, {useState} from "react"
 import TaskList from "../TaskList"
 import Header from "../Header"
 import Footer from "../Footer"
@@ -18,9 +17,14 @@ const App = () => {
 
     
 
-    const [tasks, setTasks] = useState(
-        JSON.parse(localStorage.getItem('tasks'))
+    const [tasks, setTasks] = useState(() => {
+        let res = []
+        if (localStorage.getItem('tasks')) res = JSON.parse(localStorage.getItem('tasks'))
+        return res
+    }  
     )
+
+    window.addEventListener('unload', () => localStorage.setItem('tasks', JSON.stringify(tasks)))
 
     const newTask = (text) => {
         const timestamp = new Date()
@@ -62,7 +66,7 @@ const App = () => {
         changeProp(id,'completed', !tasks[idx].completed) 
     }
 
-    const countActive = (arr) => {
+    const countActive = (arr = []) => {
         const res = arr.filter((item) => item.completed === false).length
         if (res) return `${res  } Item left`
         return `${res  } Items left`    
@@ -109,16 +113,3 @@ const App = () => {
 }
 
 export default App
-
-
-
-/*
-timer =>
-    timer body - done
-    timer counter functionality - done
-    timer off app counter =>
-        on start save id and date to local storage
-
-
-
-*/
