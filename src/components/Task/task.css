@@ -1,3 +1,11 @@
+.task-body {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	text-align: center;
+}
+
+
 .toggle-all + label {
 	width: 60px;
 	height: 34px;
@@ -18,4 +26,105 @@
 
 .toggle-all:checked + label:before {
 	color: #737373;
+}
+
+.timer {
+	display: flex;
+	justify-content: space-between;
+	font-size: 1rem;
+	width: 35%;
+}
+
+.timer__clock {
+	display: flex;
+	box-sizing: border-box;
+	justify-content: space-between;
+	margin-left: 5px;
+	margin-right: 5px;
+	width: 80px;
+}
+
+.timer__controls {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.timer__btn {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin-right: 5px;
+	transition: .3s;
+	width: 20px;
+	height: 20px;
+	color: #af5b5e;
+	cursor: pointer;
+}
+
+.timer__btn--active {
+	color: white;
+	background-color: mediumblue;
+}
+
+
+.gg-play-pause {
+	box-sizing: border-box;
+    position: relative;
+    display: block;
+    transform: scale(var(--ggs,1));
+    width: 8px;
+    height: 10px;
+    border-left: 3px solid;
+    border-right: 3px solid;
+}
+
+.gg-play-button {
+    box-sizing: border-box;
+    position: relative;
+    display: block;
+    transform: scale(var(--ggs,1));
+    width: 22px;
+    height: 22px
+}
+.gg-play-button::before {
+    content: "";
+    display: block;
+    box-sizing: border-box;
+    position: absolute;
+    width: 0;
+    height: 10px;
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid transparent;
+    border-left: 6px solid;
+    top: 6px;
+    left: 7px
+}
+
+.timer__unit {
+	width: 35%;
+}
+
+.task__content {
+	display: flex;
+	padding: 0;
+}
+
+.description {
+	box-sizing: border-box;
+	display: block;
+	text-align: left;
+	
+	width: 45%;
+}
+
+.created {
+	display: block;
+	width: 20%;
+}
+
+.task__btns {
+	display: flex;
+	margin-right: 5px;
+	align-items: center;
 }

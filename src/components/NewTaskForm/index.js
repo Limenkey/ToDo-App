@@ -1,49 +1,39 @@
 /* eslint-disable react/jsx-filename-extension */
-import React, { Component } from 'react';
+import React, {useState } from 'react';
 import PropTypes from 'prop-types'
 import "./newtaskform.css"
 
-export default class NewTaskForm extends Component {
-    state = {
-        val: ''
+const NewTaskForm = ({newTask}) => {
+
+    const [value, setValue] = useState('')
+
+    const onValChange = (event) => {
+        setValue(event.target.value)
     }
 
-    static defaultProps = {
-        newTask: () => {}
-    }
-
-    static propTypes = {
-        newTask: PropTypes.func
-    }
-
-    onValChange = (event) => {
-        this.setState({
-            val: event.target.value
-        })
-    }
-
-    onSubmit = (event) => {
+    const onSubmit = (event) => {
         event.preventDefault()
-        const {props} = this
-        const {val} = this.state
         if (event.key === 'Enter' && event.target.value) {
-            props.newTask(val)
+            newTask(value)
             // eslint-disable-next-line no-param-reassign
             event.target.value = ''
-            this.setState({
-                val: ''
-            })
-        }
-        
+            setValue('')
+        }   
     }
 
-
-    render() {
-        return <input className="new-todo" placeholder="What needs to be done?"
-                      onChange={this.onValChange} onKeyUp={this.onSubmit}
-                      // eslint-disable-next-line jsx-a11y/no-autofocus
-                      autoFocus
-               />
-    }
-    
+    return <input className="new-todo" placeholder="What needs to be done?"
+                    onChange={onValChange} onKeyUp={onSubmit}
+                    // eslint-disable-next-line jsx-a11y/no-autofocus
+                    autoFocus
+            />   
 }
+
+NewTaskForm.defaultProps = {
+    newTask: () => {}
+}
+
+NewTaskForm.propTypes = {
+    newTask: PropTypes.func
+}
+
+export default NewTaskForm
